@@ -1,0 +1,32 @@
+
+
+.article-header {
+    display: inline-flex;
+    justify-content: space-between;
+    font-family: Arial;
+    width: 50%;
+    height: 60px;
+    background-color: white;
+    color: black;
+}
+
+.article-header h2 {
+    order: -1;
+    color: black;
+    
+}
+
+.skapaButton {
+    background-color: #548052;
+    order: 2;
+    border-radius: 5px;
+    margin-top: 10px;
+    
+}
+
+.icon {
+    background-color: #548052;
+    color: white;
+}
+
+

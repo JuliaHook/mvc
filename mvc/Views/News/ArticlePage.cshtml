@@ -1,0 +1,132 @@
+﻿@model Service.Models.ArticleDTO
+@*------------Head-------------------------------------*@
+
+
+@*--------main---------------------------------------*@
+
+
+
+<div class="articlePage">
+
+
+    <div class="articlePageMain To-Dark-Gray">
+        <p class="articleTitle">@Model.Title</p>
+        <img class="titleImg" src="~/images/@Model.ImageName">
+    </div>
+
+    <div class="section1">
+
+        <div class="foreachDiv To-Dark-Gray">
+            @foreach (var block in Model.Blocks)
+            {
+                if (block.Type == "image")
+                {
+                    <img src="~/images/@block.Value">
+                }
+
+                if (block.Type == "quote")
+                {
+                    <p class="quote To-White"> <i class="fa-solid fa-quote-left"></i>@block.Value <i class="fa-solid fa-quote-right"></i></p>
+                }
+
+                if (block.Type == "paragraph")
+                {
+                    <p class="paragraph To-White">@block.Value"</p>
+                    
+                }
+
+
+            }
+
+
+
+
+        </div>
+
+
+             <div class="section2 To-Dark-Gray">
+        <div class="author To-Dark-Gray">
+            <p class="time To-White">@Model.Created</p>
+            <div class="authorImg">
+
+                <img src=~/images/@Model.Author.ImageName>
+            </div>
+            <div class="authorInfo To-White">
+                <p> @Model.Author.FirstName @Model.Author.LastName</p>
+                 
+                <p class="epost To-White"> <i class="fa-light fa-envelope"></i></i>E-post</p> 
+                <p class="twitter To-White"><i class="fa-brands fa-twitter"></i>Tvitter</p>
+
+
+            </div>
+
+        </div>
+          <div class="newsImage2">
+
+               @{
+        string randomNum = $"{new Random().Next(1, 4)}";
+        }
+        <a href="https://www.buyawesomestuff.com/" target="_blank">
+        <picture class="commercial-article-page">
+            <source media="(min-width: 700px)" srcset="~/ads/reklam-@randomNum-portrait-320w.png">
+            <source media="(min-width: 500px)" srcset="~/ads/reklam-@randomNum-landscape-940w.png">
+            <img src="~/ads/reklam-@randomNum-landscape-470w.png" alt="" class="commercial-article-page"/>
+        </picture>
+        </a>
+        
+
+        </div>
+        </div>
+    </div>
+
+
+
+    <div class="comment-wrap To-Dark-Gray">
+            <h3 class="header-comment To-White">@Model.Comments.Count() Kommentarer</h3>
+            <a href="" class="comment-link To-White">Skriv en kommentar</a>
+            <div class="comment-form To-White">
+                @using (Html.BeginForm("CreateComment", "News", FormMethod.Post))
+                {
+                    @Html.LabelFor(e=>e.NewComment.CommentedBy,"Din mejladress: ")
+
+                    <br />
+                    @Html.TextBoxFor(x=> x.NewComment.CommentedBy, new {required="required", pattern=@"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z"})
+
+                    <br />
+                    @Html.LabelFor(n=> n.NewComment.Value,"Din kommentar: ")
+
+                    <br />
+                    @Html.EditorFor(r=>r.NewComment.Value, new {required="required"})
+                    @Html.HiddenFor(x=> Model.Id)
+                    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" /> <br />
+
+                    <input type="submit" value="Lägg till kommentar" class="To-white" />
+                }
+            </div>
+            @foreach (var comment in Model.Comments)
+            {
+                <div class="comment-section To-Dark-Gray">
+                    <p class="user To-White">@comment.CommentedBy</p>
+                    <p class="created To-White">@comment.Created</p>
+                    <p class="comment To-White">@comment.Value</p>
+                </div>
+            }
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+@*--------header--------------------------*@
+
+
+

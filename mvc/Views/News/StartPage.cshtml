@@ -1,0 +1,100 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<body>
+    <div class="wrapper">
+        @*--------header--------------------------*@
+        
+
+        @*-------Section-----------------*@
+        <main>
+            @{
+                @foreach (var article in ViewBag.Articles)
+                {
+                    <a href=@Url.Action($"{@article.Id}{@article.Title.Replace(" ", "-")}")>
+                        <section class="section To-Dark-Gray">
+                            <p class="articlesContainer To-Dark-Gray">
+                                <h3 class="articles-title To-White">@article.Title</h3>
+                                <img src=@($"images/{article.ImageName}") alt="">
+
+                                <p class="date To-White">@article.Created</p>
+                            </p>
+                            <p class="articles-author To-White">—@article.AuthorFirstName.ToUpper() @article.AuthorLastName.ToUpper()</p>
+                        </section>
+                    </a>
+                }
+            }
+
+        </main>
+
+        <section class="news">
+
+
+           
+               @{
+        string randomNum = $"{new Random().Next(1, 4)}";
+    } 
+               
+
+           <a href="https://buyawesomestuff.com/" target="_blank">
+        <picture class="Commercial">
+            <source media="(min-width: 1400px)" srcset="~/ads/reklam-@randomNum-portrait-320w.png">
+            <source media="(min-width: 1024px) and (max-width: 1399px)" srcset="~/ads/reklam-@randomNum-landscape-940w.png">
+            <source media="(min-width: 700px) and (max-width: 1023px)" srcset="~/ads/reklam-@randomNum-landscape-940w.png">
+            <source media="(min-width: 501px) and (max-width: 699px)" srcset="~/ads/reklam-@randomNum-landscape-470w.png">
+            <img src="~/ads/reklam-@randomNum-landscape-470w.png" alt="" class="Commercial"/>
+        </picture>
+        </a>
+
+               
+             
+                
+          
+            <div class="divNewsList To-Dark-Gray">
+
+
+                <h3 class="To-White">De senaste nyheterna</h3>
+                @{
+
+                    foreach (var article in ViewBag.LatestArticles)
+                    {
+
+                        <section class="newsList">
+                        <div class="newsTime">
+                        <p>
+                         @article.Created
+                        </p>
+                         
+                        </div>
+                        <div class="newsTextContainor">
+                         <p>
+
+                                <h3 class="latest-article To-White">@article.Title</h3>
+                                <button type="button" class="button" onclick="window.location='@Url.Action($"{@article.Id.ToString()}-{@article.Title.Replace(" ","-")}", "News")'">Läs mer!<i class="fa-solid fa-arrow-right"></i></button>
+
+                            </p>
+                        </div>
+                           
+
+                        </section>
+
+
+                    }
+                }
+
+            </div>
+
+        </section>
+
+
+
+    </div>
+
+</body>
+
+   
+
+
